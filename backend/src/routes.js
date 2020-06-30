@@ -1,29 +1,13 @@
 const { Router }  = require('express');
-const axios = require('axios');
-const Ong = require('./models/Ong');
+const OngController = require('./controllers/OngController')
+const SearchController = require('./controllers/SearchController')
 
 const routes = Router();
 
+routes.get('/ongs', OngController.index);
+routes.post('/ongs', OngController.store);
 
+routes.get('/search', SearchController.index)
 
-routes.post('/ongs', async (request,response) => {
-    console.log(request.body);
-    
-    const { name, profile_website, bio, avatar_url, adress, animals } = request.body;
-
-    const animalsArray = animals.toString().split(',').map(animal => animal.trim());
-
-    const ong = await Ong.create ({
-        name,
-        profile_website,
-        bio,
-        avatar_url,
-        adress,
-        animals: animalsArray,
-    });
-
-
-    return response.json(ong);
-});
 
 module.exports = routes;
