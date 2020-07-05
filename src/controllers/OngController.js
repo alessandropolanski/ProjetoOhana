@@ -16,11 +16,11 @@ module.exports = {
         
         const { name, profile_website, bio, avatar_url, adress, animals, latitude, longitude } = request.body;
 
-        let ong = await Ong.findOne({ name });
+        let ongValidation = await Ong.findOne({ name });
 
 
 
-        if (!ong) { 
+        if (!ongValidation) { 
 
             const animalsArray = parseStringAsArray(animals);
     
