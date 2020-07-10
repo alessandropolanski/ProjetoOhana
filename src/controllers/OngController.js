@@ -1,6 +1,7 @@
 const axios = require('axios');
 const Ong = require('../models/Ong');
-const parseStringAsArray = require('../utils/parseStringAsArray')
+const parseStringAsArray = require('../utils/parseStringAsArray');
+const { Query } = require('mongoose');
 
 //index(lista), show(mostrar 1), store(criar), update(alterar), destroy(deletar)
 
@@ -47,13 +48,11 @@ module.exports = {
 
     async destroy(request,response){
 
-        let ong = await Ong.findOne({ name } )
+        let _id = request.params;
 
-        if (!ong){
-            console.log("404 not found")
-        } else {
-            Ong.findByIdAndDelete(request.body.id)
-        }
+        let ong = await Ong.deleteOne( _id, console.log("Deleted"))
+
+        return response.json(ong);
 
     }
 
