@@ -54,7 +54,13 @@ module.exports = {
 
         return response.json(ong);
 
-    }
+    },
 
+    async update (request,reposnse){
+
+        let _id = request.params;
+
+        let ong = await Ong.findByIdAndUpdate ( _id, console.log("Edited"))
+    }
 
 }
