@@ -2,6 +2,7 @@ const axios = require('axios');
 const Ong = require('../models/Ong');
 const parseStringAsArray = require('../utils/parseStringAsArray');
 const { Query } = require('mongoose');
+const { response } = require('express');
 
 //index(lista), show(mostrar 1), store(criar), update(alterar), destroy(deletar)
 
@@ -37,9 +38,9 @@ module.exports = {
                 avatar_url,
                 adress,
                 animals: animalsArray,
-                location
+                location: location
             });
-            
+           
         }
          
         
@@ -48,19 +49,21 @@ module.exports = {
 
     async destroy(request,response){
 
-        let _id = request.params;
 
-        let ong = await Ong.deleteOne( _id, console.log("Deleted"))
+
+        let ong = await Ong.deleteOne( request.params._id, console.log("Deleted"))
 
         return response.json(ong);
 
     },
 
-    async update (request,reposnse){
+    async update (request,response){
 
-        let _id = request.params;
+        let ong = await Ong.updateOne (request.params._id, {$set: {name: request.params.name}});
 
-        let ong = await Ong.findByIdAndUpdate ( _id, console.log("Edited"))
+        console.log(request.body); 
+        return response.json(ong);
+
     }
 
 }

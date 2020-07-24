@@ -8,6 +8,6 @@ routes.get('/ongs', OngController.index);
 routes.post('/ongs', OngController.store);
 routes.get('/search', SearchController.index);
 routes.delete('/delete', OngController.destroy);
-
+routes.put('/edit', OngController.update);
 
 module.exports = routes;
